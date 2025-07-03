@@ -31,3 +31,16 @@ function operate(operator,num1,num2) {
 
     }
 }
+
+const container = document.querySelector(".container");
+
+const buttons = [7,8,9,"/",4,5,6,"*",1,2,3,"-",".",0,"=","+"];
+for (let i of buttons) {
+    const btn = document.createElement("button");
+    btn.textContent = `${i}`;
+    const height = 400/4+"px";
+    const width = 400/4+"px";
+    btn.style.height = height;
+    btn.style.width = width;
+    container.appendChild(btn);
+}
