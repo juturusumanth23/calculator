@@ -33,6 +33,7 @@ function operate(operator,num1,num2) {
 }
 
 const container = document.querySelector(".container");
+const keypad = document.querySelector(".keypad");
 
 const buttons = [7,8,9,"/",4,5,6,"*",1,2,3,"-",".",0,"=","+"];
 for (let i of buttons) {
@@ -42,5 +43,5 @@ for (let i of buttons) {
     const width = 400/4+"px";
     btn.style.height = height;
     btn.style.width = width;
-    container.appendChild(btn);
+    keypad.appendChild(btn);
 }
