@@ -46,15 +46,37 @@ for (let i of buttons) {
     btn.style.width = width;
     keypad.appendChild(btn);
     btn.setAttribute("id",`${i}`)
-    if(typeof(i)=="number") {
-        btn.addEventListener("click",populateDisplay);
-    }
+    btn.addEventListener("click",populateDisplay);
 
 }
-
+let displayContent;
 function populateDisplay(e) {
-    const displayText = `${e.target.id}`;
-    display.append(displayText);
-    let displayContent = display.textContent;
-    console.log(display.textContent);
+
+    
+    const buttonPressed = `${e.target.id}`;
+    if (Number(buttonPressed) || buttonPressed==0) {
+        display.append(buttonPressed);
+        displayContent = display.textContent;
+    }
+    else if (buttonPressed == "clear") {
+        display.textContent = '';
+        displayContent = '';
+    }
+    else if (buttonPressed == "backspace") {
+        display.lastChild.remove();
+        displayContent = display.textContent;
+    }
+    else if (buttonPressed == "=") {
+        num2 = displayContent;
+        let result = operate(operator,num1,num2);
+        display.textContent = `${result}`;
+        displayContent = display.textContent;
+        num1 = displayContent;
+    }
+    else {
+        operator = buttonPressed;
+        num1 = displayContent;
+        display.textContent = '';
+    }
+    console.log(displayContent)
 }
