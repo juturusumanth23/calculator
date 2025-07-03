@@ -34,6 +34,7 @@ function operate(operator,num1,num2) {
 
 const container = document.querySelector(".container");
 const keypad = document.querySelector(".keypad");
+const display = document.querySelector(".display");
 
 const buttons = ["a","b","clear","backspace",7,8,9,"/",4,5,6,"*",1,2,3,"-",".",0,"=","+"];
 for (let i of buttons) {
@@ -44,4 +45,16 @@ for (let i of buttons) {
     btn.style.height = height;
     btn.style.width = width;
     keypad.appendChild(btn);
+    btn.setAttribute("id",`${i}`)
+    if(typeof(i)=="number") {
+        btn.addEventListener("click",populateDisplay);
+    }
+
+}
+
+function populateDisplay(e) {
+    const displayText = `${e.target.id}`;
+    display.append(displayText);
+    let displayContent = display.textContent;
+    console.log(display.textContent);
 }
