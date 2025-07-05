@@ -50,33 +50,75 @@ for (let i of buttons) {
 
 }
 let displayContent;
+let buffer;
 function populateDisplay(e) {
 
     
     const buttonPressed = `${e.target.id}`;
     if (Number(buttonPressed) || buttonPressed==0) {
-        display.append(buttonPressed);
-        displayContent = display.textContent;
+        if(buffer == null) {
+            display.append(buttonPressed);
+            displayContent = display.textContent;
+            buffer = "num1";
+        }
+        else if(buffer == "num1" || buffer == "num2") {
+            display.append(buttonPressed);
+            displayContent = display.textContent;
+        }
+        else if(buffer == "operator") {
+            display.textContent = '';
+            display.append(buttonPressed);
+            displayContent = display.textContent;
+            buffer = "num2";
+        }
+        else if(buffer == "result") {
+            display.textContent = '';
+            display.append(buttonPressed);
+            displayContent = display.textContent;
+            buffer = "num1";
+        }
     }
     else if (buttonPressed == "clear") {
         display.textContent = '';
         displayContent = '';
+        buffer = null;
     }
     else if (buttonPressed == "backspace") {
         display.lastChild.remove();
         displayContent = display.textContent;
     }
     else if (buttonPressed == "=") {
-        num2 = displayContent;
-        let result = operate(operator,num1,num2);
-        display.textContent = `${result}`;
-        displayContent = display.textContent;
-        num1 = displayContent;
+        if(buffer == "num1" || buffer == "operator") {
+            buffer = "result";
+            num1 = displayContent;
+        }
+        else if(buffer == "num2") {
+            buffer = "result";
+            num2 = displayContent;
+            let result = operate(operator,num1,num2);
+            display.textContent = `${result}`;
+            displayContent = `${result}`;
+        }
     }
     else {
-        operator = buttonPressed;
-        num1 = displayContent;
-        display.textContent = '';
+        if(buffer == "num1" || buffer == "result") {
+            operator = buttonPressed;
+            buffer = "operator";
+            displayContent = display.textContent;
+            num1 = displayContent;
+        }
+        else if(buffer == "operator") {
+            operator = buttonPressed;
+        }
+        else if(buffer == "num2") {
+            buffer = "operator";
+            num2 = display.textContent;
+            let result = operate(operator,num1,num2);
+            display.textContent = `${result}`;
+            num1 = `${result}`;
+            displayContent = num1;
+            operator = buttonPressed;
+        }
     }
     console.log(displayContent)
 }
