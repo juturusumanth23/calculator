@@ -36,7 +36,7 @@ const container = document.querySelector(".container");
 const keypad = document.querySelector(".keypad");
 const display = document.querySelector(".display");
 
-const buttons = ["a","b","clear","backspace",7,8,9,"/",4,5,6,"*",1,2,3,"-",".",0,"=","+"];
+const buttons = ["clear","backspace",7,8,9,"/",4,5,6,"*",1,2,3,"-",".",0,"=","+"];
 for (let i of buttons) {
     const btn = document.createElement("button");
     btn.textContent = `${i}`;
